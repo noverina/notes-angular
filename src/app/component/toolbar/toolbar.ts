@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ModalService } from '../../service/modal-service/modal-service';
 
 @Component({
@@ -10,4 +10,9 @@ import { ModalService } from '../../service/modal-service/modal-service';
 })
 export class Toolbar {
   protected modalService = inject(ModalService);
+  @Output() sort = new EventEmitter<string>();
+  startSort(event: Event) {
+    const type = (event.target as HTMLSelectElement).value;
+    this.sort.emit(type);
+  }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { HttpResponse } from '../../interface/commons';
-import { Note } from '../../interface/commons';
+import { Note, InsertNote } from '../../interface/commons';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -20,11 +20,13 @@ export class NoteService {
     );
   }
 
-  insertNote(payload: Partial<Note>): Observable<HttpResponse<null>> {
+  insertNote(payload: Partial<InsertNote>): Observable<HttpResponse<null>> {
     return this.http.post<HttpResponse<null>>(`${this.BASE_URL}/note`, payload);
   }
 
   deleteNote(id: String): Observable<HttpResponse<null>> {
-    return this.http.delete<HttpResponse<null>>(`${this.BASE_URL}/note/${id}`);
+    return this.http.delete<HttpResponse<null>>(
+      `${this.BASE_URL}/note?id=${id}`
+    );
   }
 }

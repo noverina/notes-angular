@@ -1,20 +1,29 @@
 @if (modalSignal()?.key === 'confirm-delete') {
-<app-modal></app-modal>
-} @if (modalSignal()?.key === 'confirm-insert') {
-<app-modal></app-modal>
-} @if (modalSignal()?.key === 'success') {
-<app-modal></app-modal>
+<app-modal [title]="'Confirmation'"
+  ><div class="flex flex-col gap-4">
+    <div>Do you really want to delete this note?</div>
+    <button
+      (click)="onDelete()"
+      class="rounded-md bg-red-400 font-semibold border-orange-500 border p-2 cursor-pointer transition-all duration-200 hover:border-gray-800"
+    >
+      Confirm
+    </button>
+  </div></app-modal
+>
 } @if (modalSignal()?.key === 'error') {
-<app-modal>An error has occured. Please try the request again.</app-modal>
+<app-modal>An error has occured, please try the request again</app-modal>
 } @if (modalSignal()?.key === 'form-insert') {
-<app-modal-form></app-modal-form>
+<app-modal-form (refresh)="getData()"></app-modal-form>
 }
-<div class="text-sm bg-gray-100 h-screen w-screen p-1">
-  <app-toolbar></app-toolbar>
-  @if (notes.length > 0) {
-  <div class="grid grid-cols-4 p-10 gap-4 border-gray-300 border">
-    @for (note of notes; track note) {
-    <app-note-card [note]="note"></app-note-card>
+<div class="text-xs lg:text-sm bg-gray-100 min-h-screen min-w-screen p-1">
+  <app-toolbar (sort)="sortData($event)"></app-toolbar>
+  @if (notes() || notes().length > 0) {
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-10 gap-4">
+    @for (note of notes(); track note.id) {
+    <app-note-card
+      [note]="note"
+      (toBeDeleted)="onDeleteRequest($event)"
+    ></app-note-card>
     }
   </div>
   } @else {

@@ -10,24 +10,25 @@ import { ModalService } from '../../service/modal-service/modal-service';
 })
 export class Modal {
   @Input() type!: 'success' | 'error' | 'form' | 'confirm';
-  @Input() title: string = 'Modal';
+  @Input() title?: string;
+  titleInTemplate = '';
   icon = '';
   ngOnInit() {
     switch (this.type) {
       case 'success':
         this.icon = 'check';
-        this.title = 'Success';
+        this.titleInTemplate = this.title ?? 'Success';
         break;
       case 'error':
         this.icon = 'bug';
-        this.title = 'Uh oh! :(';
+        this.titleInTemplate = this.title ?? 'Uh oh! :(';
         break;
       case 'form':
         this.icon = 'forms_add_on';
         break;
       case 'confirm':
         this.icon = 'exclamation';
-        this.title = 'Confirmation';
+        this.titleInTemplate = this.title ?? 'Confirmation';
         break;
       default:
         this.icon = 'exclamation';

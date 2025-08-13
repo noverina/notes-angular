@@ -5,7 +5,13 @@ export interface HttpResponse<T> {
 }
 
 export interface Note {
+  id: string;
   createdAt: string;
+  title: string;
+  content: string;
+}
+
+export interface InsertNote {
   title: string;
   content: string;
 }

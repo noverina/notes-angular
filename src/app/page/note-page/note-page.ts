@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NoteCard } from '../../component/note-card/note-card';
 import { CommonModule } from '@angular/common';
 import { Note } from '../../interface/commons';
@@ -17,17 +17,48 @@ import { ModalForm } from '../../component/modal-form/modal-form';
 })
 export class NotePage {
   private modalService = inject(ModalService);
-  private noteService = inject(NoteService);
-
-  notes: Note[] = [];
   modalSignal = toSignal(this.modalService.modal$, {
     initialValue: null,
   });
 
-  constructor() {
+  protected noteService = inject(NoteService);
+  notes = signal<Note[]>([]);
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
     this.noteService.getAllNotes().subscribe((response) => {
       if (!response.isError) {
-        this.notes = response.data!;
+        this.notes.set([...response.data!]);
+      } else {
+        this.modalService.open({ key: 'error', type: 'error' });
+      }
+    });
+  }
+
+  sortData(type: string) {
+    let sorted = this.notes();
+    if (type === 'title') {
+      sorted = sorted.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      sorted = sorted.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    }
+
+    this.notes.set([...sorted]);
+  }
+
+  selectedId = signal<string>('');
+  onDeleteRequest(id: string) {
+    this.selectedId.set(id);
+    this.modalService.open({ key: 'confirm-delete', type: 'confirm' });
+  }
+
+  onDelete() {
+    this.noteService.deleteNote(this.selectedId()).subscribe((response) => {
+      if (!response.isError) {
+        this.modalService.close();
+        this.getData();
       } else {
         this.modalService.open({ key: 'error', type: 'error' });
       }

@@ -1,34 +1,56 @@
 <app-modal [title]="'Create new note'" [type]="'form'">
-  <Form
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
     class="flex gap-4 flex-col text-sm"
-    (keydown.enter)="onSubmit(); $event.preventDefault()"
   >
     <div class="flex flex-col gap-4">
       <label for="title" class="font-semibold">Title</label>
-      <input
-        type="text"
-        class="border-gray-300 border rounded-md px-2 py-1 placeholder-gray-400 w-full"
-        placeholder="Type here..."
-        id="title"
-        [(ngModel)]="title"
-      />
+      <div class="flex flex-col gap-2">
+        <input
+          type="text"
+          formControlName="title"
+          class="border-gray-300 border rounded-md px-2 py-1 placeholder-gray-400 w-full"
+          placeholder="Type here..."
+        />
+        @if (form.controls['title'].invalid && form.controls['title'].touched) {
+        <div class="text-red-500 text-sm font-semibold">
+          @switch (true) { @case (form.controls['title'].hasError('required')) {
+          Title is required } @case
+          (form.controls['title'].hasError('minlength')) { Title must be at
+          least 3 characters } @case
+          (form.controls['title'].hasError('maxlength')) { Title must be no more
+          than 30 characters } }
+        </div>
+        }
+      </div>
     </div>
     <div class="flex flex-col gap-4">
       <label for="content" class="font-semibold">Note</label>
-      <textarea
-        class="border-gray-300 border rounded-md m-0 px-2 py-1 placeholder-gray-400 w-full"
-        placeholder="Type here..."
-        id="content"
-        [(ngModel)]="content"
-        cols="80"
-        rows="5"
-      ></textarea>
+      <div class="flex flex-col gap-2">
+        <textarea
+          formControlName="content"
+          class="border-gray-300 border rounded-md m-0 px-2 py-1 placeholder-gray-400 w-full"
+          placeholder="Type here..."
+          cols="80"
+          rows="5"
+        ></textarea>
+        @if (form.controls['title'].invalid && form.controls['title'].touched) {
+        <div class="text-red-500 text-sm font-semibold">
+          @switch (true) { @case (form.controls['title'].hasError('required')) {
+          Note is required } @case
+          (form.controls['title'].hasError('minlength')) { Note must be at least
+          3 characters } @case (form.controls['title'].hasError('maxlength')) {
+          Note must be no more than 300 characters } }
+        </div>
+        }
+      </div>
     </div>
     <button
-      (click)="onSubmit(); $event.preventDefault()"
-      class="rounded-md font-semibold border-gray-500 border p-2 cursor-pointer transition-all duration-300 hover:border-gray-800"
+      type="submit"
+      class="rounded-md font-semibold border-gray-500 border p-2 cursor-pointer transition-all duration-200 hover:border-gray-800"
     >
       Submit
     </button>
-  </Form>
+  </form>
 </app-modal>

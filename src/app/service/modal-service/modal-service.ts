@@ -16,7 +16,6 @@ export class ModalService {
   }
 
   close() {
-    console.log('close called');
     this.modalSubject.next(null);
   }
 }
