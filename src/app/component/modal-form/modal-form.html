@@ -1,0 +1,34 @@
+<app-modal [title]="'Create new note'" [type]="'form'">
+  <Form
+    class="flex gap-4 flex-col text-sm"
+    (keydown.enter)="onSubmit(); $event.preventDefault()"
+  >
+    <div class="flex flex-col gap-4">
+      <label for="title" class="font-semibold">Title</label>
+      <input
+        type="text"
+        class="border-gray-300 border rounded-md px-2 py-1 placeholder-gray-400 w-full"
+        placeholder="Type here..."
+        id="title"
+        [(ngModel)]="title"
+      />
+    </div>
+    <div class="flex flex-col gap-4">
+      <label for="content" class="font-semibold">Note</label>
+      <textarea
+        class="border-gray-300 border rounded-md m-0 px-2 py-1 placeholder-gray-400 w-full"
+        placeholder="Type here..."
+        id="content"
+        [(ngModel)]="content"
+        cols="80"
+        rows="5"
+      ></textarea>
+    </div>
+    <button
+      (click)="onSubmit(); $event.preventDefault()"
+      class="rounded-md font-semibold border-gray-500 border p-2 cursor-pointer transition-all duration-300 hover:border-gray-800"
+    >
+      Submit
+    </button>
+  </Form>
+</app-modal>

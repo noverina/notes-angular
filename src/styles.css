@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=add,bug,check,close,delete,exclamation,forms_add_on&display=block");
+
 @import "tailwindcss";
+
+.material-symbols-outlined {
+  font-size: revert-layer;
+}

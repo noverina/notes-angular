@@ -1,0 +1,20 @@
+<div class="bg-white rounded-sm p-4 gap-2 flex flex-col">
+  <div class="flex justify-between border-black border-b-1 items-center pb-2">
+    <div class="flex flex-col">
+      <h1 class="font-semibold text-lg w-40 truncate w-40">
+        {{ note.title }}
+      </h1>
+      <span>{{ formattedDate }}</span>
+    </div>
+    <div>
+      <button
+        class="material-symbols-outlined cursor-pointer bg-red-500 text-white rounded-full p-2 font-thin text-sm"
+      >
+        delete
+      </button>
+    </div>
+  </div>
+  <div class="h-50 overflow-scroll">
+    {{ note.content }}
+  </div>
+</div>

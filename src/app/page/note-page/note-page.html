@@ -1,0 +1,25 @@
+@if (modalSignal()?.key === 'confirm-delete') {
+<app-modal></app-modal>
+} @if (modalSignal()?.key === 'confirm-insert') {
+<app-modal></app-modal>
+} @if (modalSignal()?.key === 'success') {
+<app-modal></app-modal>
+} @if (modalSignal()?.key === 'error') {
+<app-modal>An error has occured. Please try the request again.</app-modal>
+} @if (modalSignal()?.key === 'form-insert') {
+<app-modal-form></app-modal-form>
+}
+<div class="text-sm bg-gray-100 h-screen w-screen p-1">
+  <app-toolbar></app-toolbar>
+  @if (notes.length > 0) {
+  <div class="grid grid-cols-4 p-10 gap-4 border-gray-300 border">
+    @for (note of notes; track note) {
+    <app-note-card [note]="note"></app-note-card>
+    }
+  </div>
+  } @else {
+  <div class="bg-white border-gray-300 border p-4 m-10 rounded-md">
+    No data found
+  </div>
+  }
+</div>

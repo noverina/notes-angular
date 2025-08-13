@@ -1,0 +1,27 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black/50 cursor-pointer"
+  (click)="modalService.close()"
+>
+  <div
+    class="bg-white rounded-md w-6/12 p-6 cursor-default"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="border-b-2 border-gray-300 mb-4 p-2 flex justify-between">
+      <div class="flex gap-2 items-center">
+        <span class="material-symbols-outlined text-lg">{{ icon }}</span>
+        <h1 class="font-semibold text-lg">
+          {{ title }}
+        </h1>
+      </div>
+
+      <button
+        (click)="modalService.close()"
+        class="material-symbols-outlined cursor-pointer transition-all duration-300 hover:scale-130"
+      >
+        close
+      </button>
+    </div>
+
+    <ng-content></ng-content>
+  </div>
+</div>
