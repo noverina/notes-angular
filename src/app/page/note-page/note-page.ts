@@ -28,12 +28,17 @@ export class NotePage {
   }
 
   getData() {
-    this.noteService.getAllNotes().subscribe((response) => {
-      if (!response.isError) {
-        this.notes.set([...response.data!]);
-      } else {
+    this.noteService.getAllNotes().subscribe({
+      next: (response) => {
+        if (!response.isError) {
+          this.notes.set([...response.data!]);
+        } else {
+          this.modalService.open({ key: 'error', type: 'error' });
+        }
+      },
+      error: (err) => {
         this.modalService.open({ key: 'error', type: 'error' });
-      }
+      },
     });
   }
 
@@ -55,13 +60,18 @@ export class NotePage {
   }
 
   onDelete() {
-    this.noteService.deleteNote(this.selectedId()).subscribe((response) => {
-      if (!response.isError) {
-        this.modalService.close();
-        this.getData();
-      } else {
+    this.noteService.deleteNote(this.selectedId()).subscribe({
+      next: (response) => {
+        if (!response.isError) {
+          this.modalService.close();
+          this.getData();
+        } else {
+          this.modalService.open({ key: 'error', type: 'error' });
+        }
+      },
+      error: (err) => {
         this.modalService.open({ key: 'error', type: 'error' });
-      }
+      },
     });
   }
 }
