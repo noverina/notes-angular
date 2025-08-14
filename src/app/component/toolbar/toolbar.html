@@ -1,0 +1,32 @@
+<div
+  class="sticky top-0 bg-white mx-10 my-5 p-4 rounded-md border-gray-300 border flex justify-between"
+>
+  <button
+    (click)="modalService.open({ key: 'form-insert', type: 'form' })"
+    class="flex items-center justify-center border-gray-500 border rounded-md px-4 py-1 gap-2 cursor-pointer transition-all duration-200 hover:border-gray-800"
+  >
+    <h1 class="font-semibold">Create</h1>
+    <div class="material-symbols-outlined">add</div>
+  </button>
+
+  <div class="flex justify-end gap-8">
+    <div class="flex items-center gap-4">
+      <div class="font-semibold">Sort by</div>
+      <select
+        class="border-gray-300 border rounded-md px-2 py-1"
+        (change)="startSort($event)"
+      >
+        <option value="date">Created date</option>
+        <option value="title">Title</option>
+      </select>
+    </div>
+    <!-- <div class="flex items-center gap-4">
+      <div class="font-semibold">Search</div>
+      <input
+        type="text"
+        class="border-gray-300 border rounded-md px-2 py-1 placeholder-gray-400"
+        placeholder="Type here..."
+      />
+    </div> -->
+  </div>
+</div>
