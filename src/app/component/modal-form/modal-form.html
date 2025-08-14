@@ -35,13 +35,15 @@
           cols="80"
           rows="5"
         ></textarea>
-        @if (form.controls['title'].invalid && form.controls['title'].touched) {
+        @if (form.controls['content'].invalid &&
+        form.controls['content'].touched) {
         <div class="text-red-500 text-sm font-semibold">
-          @switch (true) { @case (form.controls['title'].hasError('required')) {
-          Note is required } @case
-          (form.controls['title'].hasError('minlength')) { Note must be at least
-          3 characters } @case (form.controls['title'].hasError('maxlength')) {
-          Note must be no more than 300 characters } }
+          @switch (true) { @case (form.controls['content'].hasError('required'))
+          { Note is required } @case
+          (form.controls['content'].hasError('minlength')) { Note must be at
+          least 3 characters } @case
+          (form.controls['content'].hasError('maxlength')) { Note must be no
+          more than 500 characters } }
         </div>
         }
       </div>
